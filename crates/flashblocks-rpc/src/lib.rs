@@ -4,4 +4,4 @@ pub mod rpc;
 pub mod state;
 pub mod subscription;
 #[cfg(test)]
-mod tests;
+pub mod test_utils;

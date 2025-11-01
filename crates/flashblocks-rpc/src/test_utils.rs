@@ -7,9 +7,11 @@ use reth_db::{
     test_utils::{create_test_static_files_dir, tempdir_path, TempDatabase, ERROR_DB_CREATION},
     ClientVersion, DatabaseEnv,
 };
+
 use reth_provider::{providers::StaticFileProvider, ProviderFactory};
 
-pub fn create_provider_factory<N: NodeTypes>(
+#[cfg(test)]
+pub fn create_test_provider_factory<N: NodeTypes>(
     chain_spec: Arc<N::ChainSpec>,
 ) -> ProviderFactory<NodeTypesWithDBAdapter<N, Arc<TempDatabase<DatabaseEnv>>>> {
     let (static_dir, _) = create_test_static_files_dir();
@@ -21,6 +23,7 @@ pub fn create_provider_factory<N: NodeTypes>(
     )
 }
 
+#[cfg(test)]
 fn create_test_db() -> Arc<TempDatabase<DatabaseEnv>> {
     let path = tempdir_path();
     let emsg = format!("{ERROR_DB_CREATION}: {path:?}");
